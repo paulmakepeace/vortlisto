@@ -5,7 +5,7 @@ require 'fileutils'
 
 GCSELIST_URL = 'http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm'
 GCSELIST_PATH = File.basename(GCSELIST_URL)
-GCSELIST_FIXED_PATH = GCSELIST_PATH.sub(/\./, '.fixed.')
+GCSELIST_FIXED_PATH = GCSELIST_PATH.sub(/\./, '.ng.')
 CSV_OUTPUT_DIR = 'csv'
 
 # home.btclick.com rejects bots (despite not having a robots.txt)
