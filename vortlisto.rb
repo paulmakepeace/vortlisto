@@ -5,7 +5,7 @@ require 'fileutils'
 
 GCSELIST_URL = 'http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm'
 GCSELIST_PATH = File.basename(GCSELIST_URL)
-GCSELIST_NG_PATH = GCSELIST_PATH.sub(/\./, '.ng.')
+VORTLISTO_HTML_PATH = 'vortlisto.htm'
 CSV_OUTPUT_DIR = 'csv'
 
 # home.btclick.com rejects bots (despite not having a robots.txt)
@@ -23,7 +23,7 @@ csv = Hash.new do |h, key|
   h[key] =  CSV.open(File.join(CSV_OUTPUT_DIR, "#{key}.csv"), 'w')
 end
 
-File.open(GCSELIST_NG_PATH) do |file|
+File.open(VORTLISTO_HTML_PATH) do |file|
   section = section_filename = ''
   file.each { |line| break if line =~ %r[Index:</h2>] } # skip preamble
   file.each do |line|
@@ -37,7 +37,7 @@ File.open(GCSELIST_NG_PATH) do |file|
         break
       when %r[<a NAME=".*"></a>(?:Topic [0-9]+ - )?(.*)</h2>]
         section = $1
-        section_filename = $1.gsub(/\W+/, '_').downcase
+        section_filename = section.gsub(/\W+/, '_').downcase
       when %r[(<b>)?([^<]+)(</b>)?\.{5,}(.+)]
         # puts "$1=#{$1} $2=#{$2} $3=#{$3} $4=#{$4}\n(section=#{section})"
         unless ($1 == '<b>' && $3 == '</b>') || ($1.nil? && $3.nil?)

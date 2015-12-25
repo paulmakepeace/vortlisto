@@ -1,13 +1,13 @@
-# GCSE Word list
+# Vortlisto
 
 The goal of "vortlisto" ("word list") is to produce a machine-readable vocabulary of words for an (English-speaking) Esperanto learner.
 
-The source is a curated word list produced as part of a UK high school (GCSE) Esperanto syllabus that ran until 1996. The advantages of this source are that there's some academic consensus around the selection; the words are grouped by linguistic categories; "basic" words are tagged; and perhaps most importantly this list exists in a somewhat machine-readable state online already, thanks to [Bill Walker](http://www.wgtw.co.uk/) who created [a giant HTML page of it all](http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm).
+The source is based on a curated word list produced as part of a UK high school (GCSE) Esperanto syllabus that ran until 1996. The advantages of this source are that there's some academic consensus around the selection; the words are grouped by linguistic categories; "basic" words are tagged; and perhaps most importantly this list exists in a somewhat machine-readable state online already, thanks to [Bill Walker](http://www.wgtw.co.uk/) who created [a giant HTML page of it all](http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm) with translations.
   
 ## Contents
 
 1. `gcselist.htm` - this is the original HTML document
-2. `gcselist.fixed.htm` - the original with some manual markup fixes to aid parsing
+2. `vortlisto.htm` - the original with some additional sub-categories and additional words
 3. `csv/*.csv` - a series of CSV files containing Esperanto and English words whose names reflect the category and level
 4. `vortlisto.rb` - a Ruby program to convert the fixed HTML doc into the CSV files
 
@@ -23,11 +23,13 @@ Run with `./vortlisto.rb`; run time is about a half second.
 
 So far, I've successfully uploaded a CSV file directly to [Cerego](https://cerego.com/) a spaced repetition learning site and app. I'm a fan of Cerego since it really seems to work, the UI & UX are pretty good, and [they publish an API](https://docs.google.com/document/u/1/d/1T6hvcS39T7l2lrhuDKihQmAZuSzVQHvrGtq_OExaUc8/pub).
 
-The first word list I uploaded was the "General Basic" list that contains 396 words. It turns out Cerego struggles with a word list this big; the app spins processing all the data (there's a lot of work per-word for its learning algorithm). The other issue is that Cerego will present the words in the order they're uploaded which currently means grinding through a giant alphabetized list. Cerego is already full of progress markers so alphabetizing only seems to be a disadvantage.
+The first word list I uploaded was the "General Basic" list that contains 396 words. It turns out Cerego struggles with a word list this big; the app spins processing all the data (there's a lot of work per-word for its learning algorithm). Cerego recommend lists less than 100 associations. The other issue is that Cerego will present the words in the order they're uploaded which currently means grinding through a giant alphabetized list. Cerego is already full of progress markers so alphabetizing only seems to be a disadvantage.
 
 #### Next steps
 
-The "General Basic" list needs to be made much smaller. Two options are arranging into chunks of say 40 words by observed frequency (so learn most common words first) and by additional category like "color", "prepositions", etc. Those subcategories could also be arranged by frequency if only to break up the alphabetizing.
+The "General Basic" and some other lists need to be made much smaller; less than 100 items each. Two options are arranging into chunks of say 40 words by observed frequency (so learn most common words first) and by additional category like "color", "prepositions", etc. Those subcategories could also be arranged by frequency if only to break up the alphabetizing.
+
+So far I have created some additional sub-categories in "General Basic" which has reduced "General Basic" to about half.
 
 ## Statistics
 
@@ -35,14 +37,20 @@ Here is a list of word counts in each section and level,
 
 ```
 $ wc -l *-basic.csv | sort -n
+      12 general_color-basic.csv
       15 house_and_home-basic.csv
+      19 general_pronouns-basic.csv
+      21 general_position-basic.csv
       23 money-basic.csv
       32 weather-basic.csv
       39 places-basic.csv
+      41 general_numbers_and_measurements-basic.csv
       42 affixes-basic.csv
       46 services-basic.csv
       50 health_and_welfare-basic.csv
       51 language-basic.csv
+      53 general_correlatives-basic.csv
+      58 general_time-basic.csv
       73 travel-basic.csv
       92 life_at_home-basic.csv
       95 shopping-basic.csv
@@ -51,9 +59,9 @@ $ wc -l *-basic.csv | sort -n
      119 education_and_career-basic.csv
      142 relations_with_others-basic.csv
      158 food_and_drink-basic.csv
+     185 general-basic.csv
      266 personal_identification-basic.csv
-     386 general-basic.csv
-    1842 total
+    1845 total
 $ wc -l *-advanced.csv | sort -n
        9 house_and_home-advanced.csv
       27 places-advanced.csv
@@ -76,6 +84,6 @@ $ wc -l *-advanced.csv | sort -n
 
 ## Credits
 
-*   [Northern Examinations and Assessment Board](https://en.wikipedia.org/wiki/NEAB) (now part of [AQA](http://www.aqa.org.uk)) for providing a nationally accredited Esperanto exam and this word list
-*   [Bill Walker](http://www.wgtw.co.uk/) for converting that word list to [HTML](http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm)
+*   [Northern Examinations and Assessment Board](https://en.wikipedia.org/wiki/NEAB) (now part of [AQA](http://www.aqa.org.uk)) for providing a nationally accredited Esperanto exam and the basis of this word list
+*   [Bill Walker](http://www.wgtw.co.uk/) for converting that word list to [HTML](http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm) and translations
 *   Paul Makepeace for this package
