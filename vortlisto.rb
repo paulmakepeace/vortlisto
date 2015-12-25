@@ -5,7 +5,7 @@ require 'fileutils'
 
 GCSELIST_URL = 'http://home.btclick.com/ukc802510745/eo/vortlist/gcselist.htm'
 GCSELIST_PATH = File.basename(GCSELIST_URL)
-GCSELIST_FIXED_PATH = GCSELIST_PATH.sub(/\./, '.ng.')
+GCSELIST_NG_PATH = GCSELIST_PATH.sub(/\./, '.ng.')
 CSV_OUTPUT_DIR = 'csv'
 
 # home.btclick.com rejects bots (despite not having a robots.txt)
@@ -19,12 +19,11 @@ end
 
 FileUtils.mkdir_p CSV_OUTPUT_DIR
 
-# csv = CSV.open(GCSELIST_FIXED_PATH.sub('htm', 'csv'), 'w')
 csv = Hash.new do |h, key|
   h[key] =  CSV.open(File.join(CSV_OUTPUT_DIR, "#{key}.csv"), 'w')
 end
 
-File.open(GCSELIST_FIXED_PATH) do |file|
+File.open(GCSELIST_NG_PATH) do |file|
   section = section_filename = ''
   file.each { |line| break if line =~ %r[Index:</h2>] } # skip preamble
   file.each do |line|
